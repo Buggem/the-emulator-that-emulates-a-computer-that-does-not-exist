@@ -58,3 +58,9 @@ class GPU {
     }
   }
 }
+class CPU {
+  constructor(fr) {
+    this.vendor = "dumpstar elecktronicks co.";
+    this.nickname = "dumpstar c-pee-ew pwo";
+  }
+}
