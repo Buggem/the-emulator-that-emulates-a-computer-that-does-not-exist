@@ -54,7 +54,8 @@ class GPU {
     for(let cbit = 0; cbit <= this.screen[1]*8; cbit++) {
       var cbitRead = pipis_pro[RAM.name].readBit(parseInt(cbit/8), cbit % 8);
       fill(...colorScheme[1]);
-      rect(cbit % width, parseInt(cbit/width)); 
+      noStroke();
+      rect(cbit % width, parseInt(cbit/width), 1, 1); 
     }
   }
 }
