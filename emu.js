@@ -18,7 +18,7 @@ class RAM {
   constructor() {
     this.vendor = "dumpstar elecktronicks co.";
     this.nickname = "dumpstar amillwen dollar wam pwo";
-    this.memory = new Array[0xffff];
+    this.memory = new Array(0xffff);
     for(let byte = 0; byte < this.memory.length; byte++) {
       this.memory[byte] = Math.floor(Math.random() * (255 - 0 + 1) + 0);
     }
