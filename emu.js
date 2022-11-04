@@ -65,7 +65,7 @@ class GPU {
   constructor(fr) {
     this.vendor = "dumpstar elecktronicks co.";
     this.nickname = "dumpstar gp-ew pwo";
-    this.screen = [0x1000, 0xfa60];
+    this.screen = [0x1000, 0x2d4c];
     this.frameRate = fr;
   }
 
