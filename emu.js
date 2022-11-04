@@ -12,7 +12,7 @@ function setup() {
 }
 function draw() {
   frameRate(pipis_pro[GPU.name].frameRate);
-  if(pipis_pro[GPU.name].oldScreen !== pipis_pro[RAM.name].readBytes(pipis_pro[GPU.name].screen[0], pipis_pro[GPU.name].screen[1])) pipis_pro[GPU.name].frame();
+  //if(pipis_pro[GPU.name].oldScreen !== pipis_pro[RAM.name].readBytes(pipis_pro[GPU.name].screen[0], pipis_pro[GPU.name].screen[1])) pipis_pro[GPU.name].frame();
 }
 class RAM {
   constructor() {
