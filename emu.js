@@ -105,6 +105,9 @@ class CPU {
       if(currentOpcode == logoScreen) {
         pipis_pro[RAM.name].writeBytes(pipis_pro[GPU.name].screen[0], pipis_pro[GPU.name].screen[1], logo);
       }
+      if(currentOpcode == noRomScreen) {
+        pipis_pro[RAM.name].writeBytes(pipis_pro[GPU.name].screen[0], pipis_pro[GPU.name].screen[1], insertRom);
+      }
     }
   }
   init() {
