@@ -1,4 +1,11 @@
 var logo;
+var bsc = (function() {
+  var myArr = [];
+  for(let i = 0x0; i < (0xfa60-0x1000); i++) {
+    myArr.push(0x0);
+  }
+  return myArr;
+})();
 // launch cmd prompt straight away
 var colorScheme = [ [0], [0, 200, 0] ];
 window.pipis_pro = {};
@@ -91,7 +98,7 @@ class CPU {
     for(let i = 0; i < rom.length; i++) {
       var currentOpcode = rom[i];
       if(currentOpcode == blankScreen) {
-        pipis_pro[RAM.name].writeBytes(pipis_pro[GPU.name].screen[0], pipis_pro[GPU.name].screen[1], ''.padStart(pipis_pro[GPU.name].screen[1]+pipis_pro[GPU.name].screen[0], '0').split('').map(parseInt));
+        pipis_pro[RAM.name].writeBytes(pipis_pro[GPU.name].screen[0], pipis_pro[GPU.name].screen[1], bsc);
       }
       if(currentOpcode == logoScreen) {
         pipis_pro[RAM.name].writeBytes(pipis_pro[GPU.name].screen[0], pipis_pro[GPU.name].screen[1], logo);
