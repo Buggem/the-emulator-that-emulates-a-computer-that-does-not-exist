@@ -12,7 +12,7 @@ function setup() {
 }
 function draw() {
   frameRate(pipis_pro[GPU.name].frameRate);
-  if(pipis_pro[GPU.name].oldScreen !== pipis_pro[RAM.name].readBytes(screen[0], screen[1])) pipis_pro[GPU.name].frame();
+  if(pipis_pro[GPU.name].oldScreen !== pipis_pro[RAM.name].readBytes(pipis_pro[GPU.name].screen[0], pipis_pro[GPU.name].screen[1])) pipis_pro[GPU.name].frame();
 }
 class RAM {
   constructor() {
@@ -60,14 +60,14 @@ class GPU {
   frame() {
     background(...colorScheme[0]);
     for(let cbit = 0; cbit <= (this.screen[1]*8)-(this.screen[0]*8); cbit++) {
-      var cbitRead = pipis_pro[RAM.name].readBit(screen[0] + parseInt(cbit/8), cbit % 8);
+      var cbitRead = pipis_pro[RAM.name].readBit(this.screen[0] + parseInt(cbit/8), cbit % 8);
       if(cbitRead) {
         fill(...colorScheme[1]);
         noStroke();
         rect(cbit % width, parseInt(cbit/width), 1, 1);
       }
     }
-    this.oldScreen = pipis_pro[RAM.name].readBytes(screen[0], screen[1]);
+    this.oldScreen = pipis_pro[RAM.name].readBytes(this.screen[0], this.screen[1]);
   }
 }
 var opcodes = {
@@ -90,7 +90,7 @@ class CPU {
       if(currentOpcode == blankScreen) {
         pipis_pro[RAM.name].writeBytes(pipis_pro[GPU.name].screen[0], pipis_pro[GPU.name].screen[1], ''.padStart(pipis_pro[GPU.name].screen[1]+pipis_pro[GPU.name].screen[0], '0').split('').map(parseInt));
       }
-      if(currentOpcode == logiScreen) {
+      if(currentOpcode == logoScreen) {
         pipis_pro[RAM.name].writeBytes(pipis_pro[GPU.name].screen[0], pipis_pro[GPU.name].screen[1], logo);
       }
     }
