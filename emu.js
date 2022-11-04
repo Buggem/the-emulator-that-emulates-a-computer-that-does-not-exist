@@ -41,6 +41,7 @@ class RAM {
     return this.memory[byteA];
   }
   readByteStrArr(byteA) {
+    console.log(byteA);
     return (this.memory[byteA]).toString(2).padStart(8, '0').split('');
   }
   readBytes(byteA, byteB) {
