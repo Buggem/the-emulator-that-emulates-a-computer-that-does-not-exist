@@ -1,4 +1,4 @@
-
+var logo;
 // launch cmd prompt straight away
 var colorScheme = [ [0], [0, 200, 0] ];
 window.pipis_pro = {};
@@ -32,8 +32,16 @@ class RAM {
   readByteStrArr(byteA) {
     return (this.memory[byteA]).toString(2).padStart(8, '0').split('');
   }
+  readBytes(byteA, byteB) {
+    return this.memory.slice(byteA, byteB-1);
+  }
   writeByte(byteA, byteToA) {
     this.memory[byteA] = byteToA;
+  }
+  writeBytes(starting, ending, bytes) {
+    for(let i = 0; i < (ending-starting); i++) {
+      this.writeByte(starting+i, bytes[i]);
+    }
   }
   writeBit(byteA, bitA, bitToA) {
     var strs = this.readByteStrArr(byteA);
@@ -51,19 +59,43 @@ class GPU {
 
   frame() {
     background(...colorScheme[0]);
-    for(let cbit = 0; cbit <= this.screen[1]*8; cbit++) {
-      var cbitRead = pipis_pro[RAM.name].readBit(parseInt(cbit/8), cbit % 8);
+    for(let cbit = 0; cbit <= (this.screen[1]*8)-(this.screen[0]*8); cbit++) {
+      var cbitRead = pipis_pro[RAM.name].readBit(screen[0] + parseInt(cbit/8), cbit % 8);
       if(cbitRead) {
         fill(...colorScheme[1]);
         noStroke();
         rect(cbit % width, parseInt(cbit/width), 1, 1);
       }
     }
+    pipis_pro[RAM.name].readBytes(screen[0], screen[1]);
   }
+}
+var opcodes = {
+  blankScreen: 0x23,
+  logoScreen: 0x24,
+  writeBytes: 0x3
+  
+};
+for(ourKey of Object.keys(opcodes)) {
+  window[ourKey] = opcodes[ourKey];
 }
 class CPU {
   constructor(fr) {
     this.vendor = "dumpstar elecktronicks co.";
     this.nickname = "dumpstar c-pee-ew pwo";
+  }
+  loadROM(rom, data) {
+    for(int i = 0; i < rom.length; i++) {
+      var currentOpcode = rom[i];
+      if(currentOpcode == blankScreen) {
+        pipis_pro[RAM.name].writeBytes(pipis_pro[GPU.name].screen[0], pipis_pro[GPU.name].screen[1], ''.padStart(pipis_pro[GPU.name].screen[1]+pipis_pro[GPU.name].screen[0], '0').split('').map(parseInt));
+      }
+      if(currentOpcode == logiScreen) {
+        pipis_pro[RAM.name].writeBytes(pipis_pro[GPU.name].screen[0], pipis_pro[GPU.name].screen[1], logo);
+      }
+    }
+  }
+  init() {
+    this.loadROM([blankScreen ]);
   }
 }
