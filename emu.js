@@ -71,12 +71,14 @@ class GPU {
 
   frame() {
     background(...colorScheme[0]);
-    for(let cbit = 0; cbit <= (this.screen[1]*8)-(this.screen[0]*8); cbit++) {
-      var cbitRead = pipis_pro[RAM.name].readBit(this.screen[0] + parseInt(cbit/8), cbit % 8);
-      if(cbitRead) {
-        fill(...colorScheme[1]);
-        noStroke();
-        rect(cbit % width, parseInt(cbit/width), 1, 1);
+    for(let cbyte = 0; cbyte < (this.screen[1])-(this.screen[0]); cbyte++) {
+      var cbyteRead = pipis_pro[RAM.name].readByteStrArr(this.screen[0]+cbyte);
+      for(let cbit = 0; cbit < 8; cbit++) {
+        if(cbyteRead[cbit] == '1') {
+          fill(...colorScheme[1]);
+          noStroke();
+          rect(((cbyte*8)+cbit) % width, parseInt(((cbyte*8)+cbit)/width), 1, 1);
+        }
       }
     }
     this.oldScreen = pipis_pro[RAM.name].readBytes(this.screen[0], this.screen[1]);
