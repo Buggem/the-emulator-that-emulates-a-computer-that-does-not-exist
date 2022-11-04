@@ -85,7 +85,7 @@ class CPU {
     this.nickname = "dumpstar c-pee-ew pwo";
   }
   loadROM(rom, data) {
-    for(int i = 0; i < rom.length; i++) {
+    for(let i = 0; i < rom.length; i++) {
       var currentOpcode = rom[i];
       if(currentOpcode == blankScreen) {
         pipis_pro[RAM.name].writeBytes(pipis_pro[GPU.name].screen[0], pipis_pro[GPU.name].screen[1], ''.padStart(pipis_pro[GPU.name].screen[1]+pipis_pro[GPU.name].screen[0], '0').split('').map(parseInt));
